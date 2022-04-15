@@ -1,6 +1,7 @@
-import ReactDOM from 'react-dom';
 import React, { Component } from 'react';
+import { createRoot } from 'react-dom/client';
 
+import { Sidebar } from './components/Sidebar.js';
 import { BasicInfo } from './components/BasicInfo.js';
 import { ContactInfo } from './components/ContactInfo.js';
 import { SecurityInfo } from './components/SecurityInfo.js';
@@ -49,6 +50,8 @@ export default class App extends Component {
 
         return (
             <div>
+                <Sidebar />
+
                 <h1 id="tabelLabel" >Person list</h1>
                 <p>This component demonstrates fetching data from the server.</p>
                 {contents}
@@ -65,7 +68,8 @@ export default class App extends Component {
 
             this.setState({ persons: data, loading: false });
 
-            ReactDOM.render(<BasicInfo />, document.getElementById('profile-content'));
+            const profileRoot = createRoot(document.getElementById('profile-content'));
+            profileRoot.render(<BasicInfo />);
         }
         catch (e) {
             console.log(e);
