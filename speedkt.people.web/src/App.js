@@ -1,4 +1,9 @@
+import ReactDOM from 'react-dom';
 import React, { Component } from 'react';
+
+import { BasicInfo } from './components/BasicInfo.js';
+import { ContactInfo } from './components/ContactInfo.js';
+import { SecurityInfo } from './components/SecurityInfo.js';
 
 export default class App extends Component {
     static displayName = App.name;
@@ -47,7 +52,8 @@ export default class App extends Component {
                 <h1 id="tabelLabel" >Person list</h1>
                 <p>This component demonstrates fetching data from the server.</p>
                 {contents}
-            </div>
+                <div id='profile-content'>Profile content</div>
+            </div>            
         );
     }
 
@@ -58,6 +64,8 @@ export default class App extends Component {
             const data = await response.json();
 
             this.setState({ persons: data, loading: false });
+
+            ReactDOM.render(<BasicInfo />, document.getElementById('profile-content'));
         }
         catch (e) {
             console.log(e);
