@@ -1,7 +1,13 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
-export class BasicInfo extends React.Component {
-    render() {
-        return <h1>basic info</h1>
-    }
-}
+const BasicInfo = (props) => {
+    let { personID } = useParams();
+
+    return <div>
+        <h1>basic info</h1>
+        <span>{personID}</span>
+    </div>;
+};
+
+export default BasicInfo;

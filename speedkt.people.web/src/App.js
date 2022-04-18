@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { createRoot } from 'react-dom/client';
+
+import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 
 import { Sidebar } from './components/Sidebar.js';
-import { BasicInfo } from './components/BasicInfo.js';
-import { ContactInfo } from './components/ContactInfo.js';
+import BasicInfo from './components/BasicInfo';
+import ContactInfo from './components/ContactInfo';
 import { SecurityInfo } from './components/SecurityInfo.js';
 
 export default class App extends Component {
@@ -44,19 +45,22 @@ export default class App extends Component {
     }
 
     render() {
-        let contents = this.state.loading
+        let responseAPI = this.state.loading
             ? <p><em>Loading...</em></p>
             : App.renderPersonTable(this.state.persons);
 
         return (
-            <div>
+            <BrowserRouter>
                 <Sidebar />
 
-                <h1 id="tabelLabel" >Person list</h1>
-                <p>This component demonstrates fetching data from the server.</p>
-                {contents}
-                <div id='profile-content'>Profile content</div>
-            </div>            
+                <Routes>
+                    <Route exact path="/basicInfo/:personID" element={<BasicInfo />}></Route>
+                    <Route exact path="/contactInfo/:personID" element={<ContactInfo />}></Route>
+                    <Route exact path="/securityInfo" element={<SecurityInfo />}></Route>
+                </Routes>
+
+                {responseAPI}
+            </BrowserRouter>
         );
     }
 
@@ -67,9 +71,6 @@ export default class App extends Component {
             const data = await response.json();
 
             this.setState({ persons: data, loading: false });
-
-            const profileRoot = createRoot(document.getElementById('profile-content'));
-            profileRoot.render(<BasicInfo />);
         }
         catch (e) {
             console.log(e);

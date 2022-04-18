@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+
+import { Link } from 'react-router-dom';
 
 import { BiUser, BiUserVoice } from 'react-icons/bi';
 import { RiShieldUserLine, RiContactsLine } from 'react-icons/ri';
@@ -15,9 +17,18 @@ export class Sidebar extends React.Component {
 
             <SidebarContent>
                 <Menu iconShape="square">
-                    <MenuItem active={true} icon={<BiUser />}> Basic Info </MenuItem>
-                    <MenuItem active={true} icon={<RiContactsLine />}> Contact Info </MenuItem>
-                    <MenuItem active={true} icon={<RiShieldUserLine />}> Security Info </MenuItem>
+                    <MenuItem active={window.location.pathname === "/basicInfo"} icon={<BiUser />}>
+                        Basic Info
+                        <Link to="/basicInfo" />
+                    </MenuItem>
+                    <MenuItem active={window.location.pathname === "/contactInfo"} icon={<RiContactsLine />}>
+                        Contact Info
+                        <Link to="/contactInfo" />
+                    </MenuItem>
+                    <MenuItem active={window.location.pathname === "/securityInfo"} icon={<RiShieldUserLine />}>
+                        Security Info
+                        <Link to="/securityInfo" />
+                    </MenuItem>
                 </Menu>
             </SidebarContent>
         </ProSidebar>;
