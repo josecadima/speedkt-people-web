@@ -1,34 +1,55 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
+
+import PersonService from '../services/personService'
 
 const BasicInfo = (props) => {
     useEffect(() => {
         getPersonBasicInfo();
     }, []);
 
-    const { personID } = useParams();
-
+    const { personId } = useParams();
     const [personInfo, setPersonInfo] = useState([]);
 
-    let getPersonBasicInfo = () => {
-        try {
-            const response = axios.get(`https://localhost:44379/Person/${personID}`)
-                .then(response => {
-                    const data = response.data;
-                    setPersonInfo(data);
-                });
-        }
-        catch (e) {
-            console.log(e);
-        }
+    const getPersonBasicInfo = () => {
+        PersonService.getPersonInfo(personId)
+            .then(response => {
+                const data = response.data;
+                setPersonInfo(data);
+            });
+    };
+
+    const savePersonInfo = () => {
+        PersonService.updatePersonInfo(personInfo)
+            .then(response => {
+                console.log('person info saved');
+            });
+    }
+
+    const onInputChange = event => {
+        const { name, value } = event.target;
+        setPersonInfo({ ...personInfo, [name]: value });
     };
 
     return (
-        <div class="basic-info-container">
-            <h1>Personal information {personInfo.nickName}</h1>
-            <div>First Name: {personInfo.firstName}</div>
-            <div>Last Name: {personInfo.lastName}</div>
+        <div>
+            <div>
+                <label htmlFor='firstName'>First name</label>
+                <input type='text' className='form-control' id='firstName' name='firstName' required
+                    value={personInfo.firstName}
+                    onChange={onInputChange} />
+            </div>
+
+            <div>
+                <label htmlFor='lastName'>Last name</label>
+                <input type='text' className='form-control' id='lastName' name='lastName' required
+                    value={personInfo.lastName}
+                    onChange={onInputChange} />
+            </div>
+
+            <button onClick={savePersonInfo} className='btn btn-success'>
+                Save
+            </button>
         </div>
     );
 };
