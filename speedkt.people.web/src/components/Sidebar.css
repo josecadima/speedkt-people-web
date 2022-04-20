@@ -1,0 +1,25 @@
+.sidebar-container {
+    margin-right: 50px;
+}
+
+.pro-sidebar {
+    color: #404040 !important;
+}
+
+.pro-sidebar-header {
+    font-weight: 500;
+    padding: 10px !important;
+}
+
+.pro-sidebar-inner {
+    background: #ffffff !important;
+}
+
+.pro-icon-wrapper {
+    background-color: #ffffff !important
+}
+
+.pro-menu-item.active {
+    color: darkblue !important;
+    border-right: 2px groove darkblue;
+}

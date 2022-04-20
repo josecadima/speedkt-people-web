@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 
-import { Sidebar } from './components/Sidebar.js';
+import Box from '@mui/material/Box';
+
+import Sidebar from './components/Sidebar';
 import BasicInfo from './components/BasicInfo';
 import ContactInfo from './components/ContactInfo';
 import { SecurityInfo } from './components/SecurityInfo.js';
@@ -18,13 +20,15 @@ export default class App extends Component {
     render() {
         return (
             <BrowserRouter>
-                <Sidebar />
+                <Box sx={{ display:'flex', flexDirection:'row', flexWrap:'wrap', bgcolor: 'background.paper' }}>
+                    <Sidebar />
 
-                <Routes>
-                    <Route exact path="/basicInfo/:personId" element={<BasicInfo />}></Route>
-                    <Route exact path="/contactInfo/:personId" element={<ContactInfo />}></Route>
-                    <Route exact path="/securityInfo" element={<SecurityInfo />}></Route>
-                </Routes>
+                    <Routes>
+                        <Route exact path="/basicInfo/:personId" element={<BasicInfo />}></Route>
+                        <Route exact path="/contactInfo/:personId" element={<ContactInfo />}></Route>
+                        <Route exact path="/securityInfo" element={<SecurityInfo />}></Route>
+                    </Routes>
+                </Box>
             </BrowserRouter>
         );
     }

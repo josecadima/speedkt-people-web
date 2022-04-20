@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 
 import PersonService from '../services/personService'
 
+import './BasicInfo.css'
+
 const BasicInfo = (props) => {
     useEffect(() => {
         getPersonBasicInfo();
@@ -32,7 +34,7 @@ const BasicInfo = (props) => {
     };
 
     return (
-        <div>
+        <div className='basic-info-container'>
             <div>
                 <label htmlFor='firstName'>First name</label>
                 <input type='text' className='form-control' id='firstName' name='firstName' required

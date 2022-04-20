@@ -1,0 +1,8 @@
+.contact-info-container {
+    padding: 10px;
+    min-width: 500px;
+}
+
+    .contact-info-container div {
+        margin-bottom: 10px;
+    }
