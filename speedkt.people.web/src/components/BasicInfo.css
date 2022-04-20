@@ -6,3 +6,8 @@
     .basic-info-container div {
         margin-bottom: 10px;
     }
+
+.basic-info-nickname {
+    align-self: center;
+    font-weight: 500;
+}

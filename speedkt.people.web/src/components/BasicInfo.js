@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Box from '@mui/material/Box';
 
-import PersonService from '../services/personService'
+import PersonService from '../services/personService';
 
-import './BasicInfo.css'
+import './BasicInfo.css';
+import EditableAvatar from './EditableAvatar';
 
 const BasicInfo = (props) => {
     useEffect(() => {
@@ -35,6 +37,19 @@ const BasicInfo = (props) => {
 
     return (
         <div className='basic-info-container'>
+            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                <EditableAvatar />
+
+                <div className='basic-info-nickname'>{ personInfo.nickName}</div>
+            </Box>
+
+            <div>
+                <label htmlFor='nickName'>Nick name</label>
+                <input type='text' className='form-control' id='nickName' name='nickName' required
+                    value={personInfo.nickName}
+                    onChange={onInputChange} />
+            </div>
+
             <div>
                 <label htmlFor='firstName'>First name</label>
                 <input type='text' className='form-control' id='firstName' name='firstName' required
