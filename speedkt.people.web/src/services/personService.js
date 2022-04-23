@@ -5,17 +5,25 @@ const getPersonInfo = (personId) => {
 };
 
 const getAvatarUrl = (personId) => {
-    return `https://speedkt-avatar.s3.amazonaws.com/${personId}.jpg`;
+    const imageUrl = `https://speedkt-avatar.s3.amazonaws.com/${personId}.jpeg`;
+
+    //Add random values at the end to update UI when the avatar image is updated under the same URL name
+    return `${imageUrl}?${new Date().getTime()}`;
 };
 
 const updatePersonInfo = (data) => {
     return http.put('info', data);
 };
 
+const updateAvatar = (data) => {
+    return http.put('avatar', data);
+};
+
 const PersonService = {
     getPersonInfo,
     getAvatarUrl,
-    updatePersonInfo
+    updatePersonInfo,
+    updateAvatar
 };
 
 export default PersonService;

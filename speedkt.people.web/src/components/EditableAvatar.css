@@ -1,0 +1,9 @@
+.avatar-container {
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar-container input {
+    display: none;
+}
