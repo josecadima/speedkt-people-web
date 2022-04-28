@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { BiUser, BiUserVoice } from 'react-icons/bi';
 import { RiShieldUserLine, RiContactsLine } from 'react-icons/ri';
@@ -12,11 +12,6 @@ import './Sidebar.css';
 const Sidebar = (props) => {
     const location = useLocation().pathname;
 
-    //const personId = location.split("/").pop();
-    const basicInfoLink = `/basicInfo/${props.personId}`;
-    const contactInfoLink = `/contactInfo/${props.personId}`;
-    const securityInfoLink = `/securityInfo/${props.personId}`;
-
     return (
         <div className="sidebar-container">
             <ProSidebar>
@@ -26,17 +21,17 @@ const Sidebar = (props) => {
 
                 <SidebarContent>
                     <Menu iconShape="square">
-                        <MenuItem active={location.startsWith("/basicInfo/")} icon={<BiUser />}>
+                        <MenuItem active={location == "/" || location == "/basicInfo/"} icon={<BiUser />}>
                             Basic Info
-                            <Link to={basicInfoLink} />
+                            <Link to="/basicInfo" />
                         </MenuItem>
-                        <MenuItem active={location.startsWith("/contactInfo/")} icon={<RiContactsLine />}>
+                        <MenuItem active={location == "/contactInfo/"} icon={<RiContactsLine />}>
                             Contact Info
-                            <Link to={contactInfoLink} />
+                            <Link to="/contactInfo" />
                         </MenuItem>
-                        <MenuItem active={location.startsWith("/securityInfo/")} icon={<RiShieldUserLine />}>
+                        <MenuItem active={location == "/securityInfo/"} icon={<RiShieldUserLine />}>
                             Security Info
-                            <Link to={securityInfoLink} />
+                            <Link to="/securityInfo" />
                         </MenuItem>
                     </Menu>
                 </SidebarContent>

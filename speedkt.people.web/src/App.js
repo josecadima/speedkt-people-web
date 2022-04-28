@@ -27,19 +27,26 @@ const App = () => {
             });
 
             localStorage.setItem("token", accessToken);
-        };
+            console.log("Access token retrieved");
 
-        accountInfo.Auth0Id = user.sub.replace('auth0|', '');
-        AccountService.getAccountInfo(accountInfo)
-            .then(response => {
-                const data = response.data;
-                setAccountInfo(data);
-            });
+            accountInfo.Auth0Id = user.sub.replace('auth0|', '');
+            AccountService.getAccountInfo(accountInfo)
+                .then(response => {
+                    const data = response.data;
+                    localStorage.setItem("personId", data.personId);
+                    setAccountInfo(data);
+
+                    console.log("Person account retrieved");
+                })
+                .catch(reason => {
+                    console.log("Failed getting person account");
+                });
+        };
 
         getAccessToken();
     }, [getAccessTokenSilently, user?.sub]);
 
-    if (!isAuthenticated)
+    if (!isAuthenticated || accountInfo.personId == null)
         return <Navbar />;
 
     return (
@@ -48,12 +55,13 @@ const App = () => {
 
             <BrowserRouter>
                 <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', bgcolor: 'background.paper' }}>
-                    <Sidebar personId={accountInfo.personId} />
+                    <Sidebar />
 
                     <Routes>
-                        <Route exact path="/basicInfo/:personId" element={<BasicInfo />}></Route>
-                        <Route exact path="/contactInfo/:personId" element={<ContactInfo />}></Route>
-                        <Route exact path="/securityInfo/:personId" element={<SecurityInfo />}></Route>
+                        <Route exact path="/" element={<BasicInfo />}></Route>
+                        <Route exact path="/basicInfo" element={<BasicInfo />}></Route>
+                        <Route exact path="/contactInfo" element={<ContactInfo />}></Route>
+                        <Route exact path="/securityInfo" element={<SecurityInfo />}></Route>
                     </Routes>
                 </Box>
             </BrowserRouter>

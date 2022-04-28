@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { IconButton, Avatar } from '@mui/material';
 
 import PersonService from '../services/personService';
@@ -7,20 +6,23 @@ import './EditableAvatar.css';
 
 const EditableAvatar = () => {
     useEffect(() => {
-        updateAvatar();
+        const personId = localStorage.getItem("personId");
+        if (personId != null) {
+            updateAvatar(personId);
+        }
     }, []);
 
-    const { personId } = useParams();
     const [avatarUrl, setAvatarUrl] = useState('');
     const [uploadingAvatar, setUploadingAvatar] = useState(false);
 
-    const updateAvatar = () => {
+    const updateAvatar = (personId) => {
         const avatarUrl = PersonService.getAvatarUrl(personId);
         setAvatarUrl(avatarUrl);
         setUploadingAvatar(false);
     };
 
     const onAvatarSelected = (event) => {
+        const personId = localStorage.getItem("personId");
         const avatarImage = event.target?.files?.[0];
 
         if (avatarImage) {
@@ -35,7 +37,7 @@ const EditableAvatar = () => {
                 PersonService.updateAvatar(data)
                     .then(response => {
                         console.log('person avatar saved');
-                        updateAvatar();
+                        updateAvatar(personId);
                     });
             };
             reader.readAsDataURL(avatarImage);

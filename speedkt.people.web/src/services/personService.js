@@ -1,6 +1,8 @@
 import httpRequest from '../common/httpRequest';
 
 const getPersonInfo = (personId) => {
+    console.log("Getting person info");
+
     return httpRequest.get(`/Person/${personId}`);
 };
 
@@ -12,10 +14,14 @@ const getAvatarUrl = (personId) => {
 };
 
 const updatePersonInfo = (data) => {
+    console.log("Updating person info");
+
     return httpRequest.put('/Person/info', data);
 };
 
 const updateAvatar = (data) => {
+    console.log("Updating person avatar");
+
     return httpRequest.put('/Person/avatar', data);
 };
 

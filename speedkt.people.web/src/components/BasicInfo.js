@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 
 import PersonService from '../services/personService';
@@ -9,17 +8,23 @@ import EditableAvatar from './EditableAvatar';
 
 const BasicInfo = (props) => {
     useEffect(() => {
-        getPersonBasicInfo();
+        const personId = localStorage.getItem("personId");
+        if (personId != null) {
+            getPersonBasicInfo(personId);
+        }
     }, []);
 
-    const { personId } = useParams();
-    const [personInfo, setPersonInfo] = useState([]);
+    const [personInfo, setPersonInfo] = useState({ personId: '' });
 
-    const getPersonBasicInfo = () => {
+    const getPersonBasicInfo = (personId) => {
         PersonService.getPersonInfo(personId)
             .then(response => {
                 const data = response.data;
                 setPersonInfo(data);
+                console.log("Person info retrieved");
+            })
+            .catch(reason => {
+                console.log("Failed getting person info");
             });
     };
 
