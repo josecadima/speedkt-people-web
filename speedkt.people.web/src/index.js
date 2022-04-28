@@ -11,7 +11,8 @@ root.render(
     <Auth0Provider
         domain="dev-5mwuf5h3.us.auth0.com"
         clientId="1R8N4trPxJ5c2Dhov5y2L5CPpbK7rLFN"
-        redirectUri={window.location.origin}>
+        redirectUri={window.location.origin}
+        audience="https://speedkt.com/people/api">
         <React.StrictMode>
             <App />
         </React.StrictMode>

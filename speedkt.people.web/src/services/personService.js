@@ -1,7 +1,7 @@
-import http from '../common/http-axios';
+import httpRequest from '../common/httpRequest';
 
 const getPersonInfo = (personId) => {
-    return http.get(`/${personId}`);
+    return httpRequest.get(`/${personId}`);
 };
 
 const getAvatarUrl = (personId) => {
@@ -12,11 +12,11 @@ const getAvatarUrl = (personId) => {
 };
 
 const updatePersonInfo = (data) => {
-    return http.put('info', data);
+    return httpRequest.put('info', data);
 };
 
 const updateAvatar = (data) => {
-    return http.put('avatar', data);
+    return httpRequest.put('avatar', data);
 };
 
 const PersonService = {
