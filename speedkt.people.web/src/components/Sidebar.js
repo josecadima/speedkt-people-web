@@ -8,15 +8,14 @@ import { RiShieldUserLine, RiContactsLine } from 'react-icons/ri';
 import { ProSidebar, Menu, MenuItem, SidebarHeader, SidebarContent } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 import './Sidebar.css';
-import ContactInfo from './ContactInfo';
 
-const Sidebar = () => {
+const Sidebar = (props) => {
     const location = useLocation().pathname;
 
-    const personId = location.split("/").pop();
-    const basicInfoLink = `/basicInfo/${personId}`;
-    const contactInfoLink = `/contactInfo/${personId}`;
-    const securityInfoLink = `/securityInfo/${personId}`;
+    //const personId = location.split("/").pop();
+    const basicInfoLink = `/basicInfo/${props.personId}`;
+    const contactInfoLink = `/contactInfo/${props.personId}`;
+    const securityInfoLink = `/securityInfo/${props.personId}`;
 
     return (
         <div className="sidebar-container">

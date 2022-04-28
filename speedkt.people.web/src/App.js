@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import Box from '@mui/material/Box';
@@ -9,12 +9,18 @@ import ContactInfo from './components/ContactInfo';
 import SecurityInfo from './components/SecurityInfo';
 import Navbar from './components/Navbar';
 
+import AccountService from './services/accountService';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
-    const { getAccessTokenSilently } = useAuth0();
+    const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+    const [accountInfo, setAccountInfo] = useState({ PersonId: null, Auth0Id: '' });
 
     useEffect(() => {
+        if (!isAuthenticated)
+            return;
+
         const getAccessToken = async () => {
             const accessToken = await getAccessTokenSilently({
                 audience: 'https://speedkt.com/people/api'
@@ -23,23 +29,26 @@ const App = () => {
             localStorage.setItem("token", accessToken);
         };
 
-        getAccessToken();
-    });
+        accountInfo.Auth0Id = user.sub.replace('auth0|', '');
+        AccountService.getAccountInfo(accountInfo)
+            .then(response => {
+                const data = response.data;
+                setAccountInfo(data);
+            });
 
-    const { user, isAuthenticated } = useAuth0();
+        getAccessToken();
+    }, [getAccessTokenSilently, user?.sub]);
 
     if (!isAuthenticated)
         return <Navbar />;
 
-    console.log(user);
-
     return (
         <div>
             <Navbar />
-            
+
             <BrowserRouter>
                 <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', bgcolor: 'background.paper' }}>
-                    <Sidebar />
+                    <Sidebar personId={accountInfo.personId} />
 
                     <Routes>
                         <Route exact path="/basicInfo/:personId" element={<BasicInfo />}></Route>

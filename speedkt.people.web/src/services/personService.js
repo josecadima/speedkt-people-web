@@ -1,7 +1,7 @@
 import httpRequest from '../common/httpRequest';
 
 const getPersonInfo = (personId) => {
-    return httpRequest.get(`/${personId}`);
+    return httpRequest.get(`/Person/${personId}`);
 };
 
 const getAvatarUrl = (personId) => {
@@ -12,11 +12,11 @@ const getAvatarUrl = (personId) => {
 };
 
 const updatePersonInfo = (data) => {
-    return httpRequest.put('info', data);
+    return httpRequest.put('/Person/info', data);
 };
 
 const updateAvatar = (data) => {
-    return httpRequest.put('avatar', data);
+    return httpRequest.put('/Person/avatar', data);
 };
 
 const PersonService = {
